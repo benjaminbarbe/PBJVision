@@ -2195,6 +2195,17 @@ previewPhotoSampleBuffer:(CMSampleBufferRef)previewPhotoSampleBuffer
         CFRelease(sampleBuffer);
         return;
     }
+    
+    BOOL isVideo = (captureOutput == _captureOutputVideo);
+    if (isVideo) {
+        if ([_delegate respondsToSelector:@selector(vision:didPreviewVideoSampleBuffer:)]) {
+            [_delegate vision:self didPreviewVideoSampleBuffer:sampleBuffer];
+        }
+    } else {
+        if ([_delegate respondsToSelector:@selector(vision:didPreviewAudioSample:)]) {
+            [_delegate vision:self didPreviewAudioSample:sampleBuffer];
+        }
+    }
 
     if (!_flags.recording || _flags.paused) {
         CFRelease(sampleBuffer);
@@ -2207,7 +2218,6 @@ previewPhotoSampleBuffer:(CMSampleBufferRef)previewPhotoSampleBuffer
     }
     
     // setup media writer
-    BOOL isVideo = (captureOutput == _captureOutputVideo);
     if (!isVideo && !_mediaWriter.isAudioReady) {
         [self _setupMediaWriterAudioInputWithSampleBuffer:sampleBuffer];
         DLog(@"ready for audio (%d)", _mediaWriter.isAudioReady);

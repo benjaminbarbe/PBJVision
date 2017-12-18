@@ -295,6 +295,8 @@ static CGFloat const PBJVideoBitRate1280x750 = 5000000 * 8;
 
 - (void)visionSessionDidStartPreview:(PBJVision *)vision;
 - (void)visionSessionDidStopPreview:(PBJVision *)vision;
+- (void)vision:(PBJVision *)vision didPreviewVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+- (void)vision:(PBJVision *)vision didPreviewAudioSample:(CMSampleBufferRef)sampleBuffer;
 
 // photo
 
