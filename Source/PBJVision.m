@@ -2431,6 +2431,7 @@ previewPhotoSampleBuffer:(CMSampleBufferRef)previewPhotoSampleBuffer
             if ([_delegate respondsToSelector:@selector(visionSessionDidStop:)]) {
                 [_delegate visionSessionDidStop:self];
             }
+            _previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:nil];
         }];
     }];
 }
